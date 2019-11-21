@@ -2,7 +2,7 @@ module Api
   module V1
     class ArtistsController < ApplicationController
       before_action :set_artist, only: [:show, :update, :destroy]
-      before_action :authorize_access_request!, except: {:index, :show}
+      before_action :authorize_access_request!, except: [:index, :show]
 
       # GET /artists
       def index
@@ -21,7 +21,7 @@ module Api
         @artist = Artist.new(artist_params)
 
         if @artist.save
-          render json: @artist, status: :created, location: @artist
+          render json: @artist, status: :created
         else
           render json: @artist.errors, status: :unprocessable_entity
         end
